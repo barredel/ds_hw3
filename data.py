@@ -48,7 +48,7 @@ class StandardScaler:
 
 
     def transform(self, X):
-        """transform X by learned mean and standard deviation, and return it """
+        """ transform X by learned mean and standard deviation, and return it """
         return (X-self.means)/self.standard_deviations
 
 
