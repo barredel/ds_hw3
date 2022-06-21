@@ -38,11 +38,11 @@ class StandardScaler:
 
 
     def fit(self, X):
-    “”” fit scaler by learning mean and standard deviation per feature “””
+    """ fit scaler by learning mean and standard deviation per feature """
 
 
     def transform(self, X):
-   ## “”” transform X by learned mean and standard deviation, and return it “””
+    """ transform X by learned mean and standard deviation, and return it """
     transformed_data = np.array([np.array(list(df[features[0]])), np.array(list(df[features[0]]))])
     print(transformed_data)
     sum0 = transformed_data[0].sum()
@@ -55,7 +55,7 @@ class StandardScaler:
 
 
     def fit_transform(self, X):
-    “”” fit scaler by learning mean and standard deviation per feature, and then transform X “””
+    """ fit scaler by learning mean and standard deviation per feature, and then transform X """
 
 
 
