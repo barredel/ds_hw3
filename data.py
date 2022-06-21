@@ -37,25 +37,17 @@ class StandardScaler:
     def __init__(self):
         pass
 
-
-
     def fit(self, X):
         """ fit scaler by learning mean and standard deviation per feature """
         for i in X.T:
             self.standard_deviations.append(i.std())
             self.means.append(i.mean())
 
-
-
     def transform(self, X):
         """transform X by learned mean and standard deviation, and return it """
         return (X-self.means)/self.standard_deviations
 
-
     def fit_transform(self, X):
-    “”” fit scaler by learning mean and standard deviation per feature, and then transform X “””
-
-
-
-
-
+        """fit scaler by learning mean and standard deviation per feature, and then transform X"""
+        self.fit(X)
+        X = self.transform(X)
