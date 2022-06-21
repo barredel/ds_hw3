@@ -31,31 +31,29 @@ def adjust_labels(y):
 
 
 class StandardScaler:
-    pass
+    standard_deviations = []
+    means = []
 
     def __init__(self):
+        pass
 
 
 
     def fit(self, X):
-    """ fit scaler by learning mean and standard deviation per feature """
+        """ fit scaler by learning mean and standard deviation per feature """
+        for i in X.T:
+            self.standard_deviations.append(i.std())
+            self.means.append(i.mean())
+
 
 
     def transform(self, X):
-    """ transform X by learned mean and standard deviation, and return it """
-    transformed_data = np.array([np.array(list(df[features[0]])), np.array(list(df[features[0]]))])
-    print(transformed_data)
-    sum0 = transformed_data[0].sum()
-    min0 = transformed_data[0].min()
-    sum1 = transformed_data[1].sum()
-    min1 = transformed_data[1].min()
-    (transformed_data[0] - min0)/sum0
-    (transformed_data[1] - min1) / sum1
-    print(transformed_data)
+        """transform X by learned mean and standard deviation, and return it """
+        return (X-self.means)/self.standard_deviations
 
 
     def fit_transform(self, X):
-    """ fit scaler by learning mean and standard deviation per feature, and then transform X """
+    “”” fit scaler by learning mean and standard deviation per feature, and then transform X “””
 
 
 
