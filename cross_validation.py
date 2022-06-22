@@ -3,7 +3,7 @@ import numpy as np
 
 def cross_validation_score(model, X, y, folds, metric):
     """ run cross validation on X and y with specific model by given folds. Evaluate by given metric. """
-    scores = [] #TODO FIX
+    scores = []
     for train_indices, validation_indices in folds.split(X):
         model.fit(X[train_indices], y[train_indices])
         y_pred = model.predict(X[validation_indices])
