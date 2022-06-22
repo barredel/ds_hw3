@@ -25,7 +25,7 @@ def f1_score(y_true, y_pred):
 
 def rmse(y_true, y_pred):
     y_diff = y_true - y_pred
-    return math.sqrt((y_diff*y_diff).sum/len(y_true))
+    return math.sqrt((y_diff*y_diff).sum()/len(y_true))
 
 
 def visualize_results(k_list, scores, metric_name, title, path):

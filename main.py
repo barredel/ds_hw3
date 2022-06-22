@@ -8,25 +8,27 @@ from knn import *
 
 def main(argv):
     k_list = [3, 5, 11, 25, 51, 75, 101]
-    df = load_data(argv)
+    df = load_data("/home/student/hw3/london_sample_500.csv")
     folds = data.get_folds()
 
     # Part 1 - Classification
-    X = add_noise(df['t1', 't2', 'wind_speed', 'hum'])
-    y = adjust_labels(df['season'])
+    X = add_noise(df[['t1', 't2', 'wind_speed', 'hum']].to_numpy())
+    y = adjust_labels(df['season'].to_numpy())
     means, standard_deviations = model_selection_cross_validation(ClassificationKNN, k_list, X, y, folds, f1_score)
-    print("Part 1 - Classification")
-    for i in len(range(k_list)):
-        print(f"k = {k_list[i]}, mean score: {means[i]}, std of scores: {standard_deviations[i]}")
+    print("Part1 - Classification")
+    for i in range(len(k_list)):
+        print(f"k={k_list[i]}" + ", mean score: " + "{:.4f}".format(round(means[i], 4)) + ", std of scores: "
+              + "{:.4f}".format(round(standard_deviations[i], 4)))
 
     print()
     # Part 2 - Regression
-    X = add_noise(df['t1', 't2', 'wind_speed'])
-    y = df['hum']
+    X = add_noise(df[['t1', 't2', 'wind_speed']].to_numpy())
+    y = df['hum'].to_numpy()
     means, standard_deviations = model_selection_cross_validation(RegressionKNN, k_list, X, y, folds, rmse)
-    print("Part 2 - Regression")
-    for i in len(range(k_list)):
-        print(f"k = {k_list[i]}, mean score: {means[i]}, std of scores: {standard_deviations[i]}")
+    print("Part2 - Regression")
+    for i in range(len(k_list)):
+        print(f"k={k_list[i]}" + ", mean score: " + "{:.4f}".format(round(means[i], 4)) + ", std of scores: "
+              + "{:.4f}".format(round(standard_deviations[i], 4)))
 
 
 if __name__ == '__main__':

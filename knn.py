@@ -7,15 +7,18 @@ class KNN:
     k = 0
     X_train = []
     y_train = []
+    scaler = 0
 
     def __init__(self, k):
         self.k = k
+        self.X_train = []
+        self.y_train = []
+        self.scaler = StandardScaler()
 
 
     def fit(self, X_train, y_train):
-        scaler = StandardScaler()
-        self.X_train = scaler.fit_transform(X_train)
-        self.Y_train = scaler.fit_transform(y_train)
+        self.X_train = self.scaler.fit_transform(X_train)
+        self.y_train = y_train
 
 
     @abstractmethod
@@ -36,9 +39,10 @@ class KNN:
 
 
     def neighbours_indices(self, x):
-        distances = np.empty()
+        distances = []
         for observation in self.X_train:
-            np.append(distances, self.dist(x , observation))
+            distances.append(self.dist(x, observation))
+        distances = np.array(distances)
         indices = np.argpartition(distances, self.k)[:self.k]
         return indices
         """ for a given point x, find indices of k closest points in the training set """
@@ -54,9 +58,12 @@ class ClassificationKNN(KNN):
         class instantiation """
 
     def predict(self, X_test):
-        y_pred = np.empty()
+        X_test = self.scaler.transform(X_test)
+        y_pred = []
         for point in X_test:
-            np.append(y_pred, stats.mode(self.y_train[self.neighbours_indices(point)]))
+            m = stats.mode(self.y_train[self.neighbours_indices(point)])
+            y_pred.append(m[0][0])
+        y_pred = np.array(y_pred)
         return y_pred
         """ predict
         labels
@@ -74,9 +81,11 @@ class RegressionKNN(KNN):
         class instantiation """
 
     def predict(self, X_test):
-        y_pred = np.empty()
+        X_test = self.scaler.transform(X_test)
+        y_pred = []
         for point in X_test:
-            np.append(y_pred, (self.y_train[self.neighbours_indices(point)]).mean())
+            y_pred.append((self.y_train[self.neighbours_indices(point)]).mean())
+        y_pred = np.array(y_pred)
         return y_pred
         """ predict
         labels
