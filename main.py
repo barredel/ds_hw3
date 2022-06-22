@@ -1,16 +1,33 @@
-# This is a sample Python script.
+import sys
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import data
+from data import *
+from cross_validation import *
+from evaluation import *
+from knn import *
+
+def main(argv):
+    k_list = [3, 5, 11, 25, 51, 75, 101]
+    df = load_data(argv)
+    folds = data.get_folds()
+
+    # Part 1 - Classification
+    X = add_noise(df['t1', 't2', 'wind_speed', 'hum'])
+    y = adjust_labels(df['season'])
+    means, standard_deviations = model_selection_cross_validation(ClassificationKNN, k_list, X, y, folds, f1_score)
+    print("Part 1 - Classification")
+    for i in len(range(k_list)):
+        print(f"k = {k_list[i]}, mean score: {means[i]}, std of scores: {standard_deviations[i]}")
+
+    print()
+    # Part 2 - Regression
+    X = add_noise(df['t1', 't2', 'wind_speed'])
+    y = df['hum']
+    means, standard_deviations = model_selection_cross_validation(RegressionKNN, k_list, X, y, folds, rmse)
+    print("Part 2 - Regression")
+    for i in len(range(k_list)):
+        print(f"k = {k_list[i]}, mean score: {means[i]}, std of scores: {standard_deviations[i]}")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('bar')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main(sys.argv)

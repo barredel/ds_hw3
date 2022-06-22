@@ -1,6 +1,7 @@
 import numpy as np
 from scipy import stats
-from abc import abstractmethod from data import StandardScaler
+from abc import abstractmethod
+from data import StandardScaler
 
 class KNN:
     k = 0
@@ -13,8 +14,8 @@ class KNN:
 
     def fit(self, X_train, y_train):
         scaler = StandardScaler()
-        scaler.fit_transform(X_train)
-        scaler.fit_transform(y_train)
+        self.X_train = scaler.fit_transform(X_train)
+        self.Y_train = scaler.fit_transform(y_train)
 
 
     @abstractmethod
@@ -27,8 +28,6 @@ class KNN:
     def dist(x1, x2):
         distance = np.linalg.norm(x1 - x2)
         return distance
-
-
         """returns
         Euclidean
         distance
@@ -42,8 +41,7 @@ class KNN:
             np.append(distances, self.dist(x , observation))
         indices = np.argpartition(distances, self.k)[:self.k]
         return indices
-
-            """ for a given point x, find indices of k closest points in the training set """
+        """ for a given point x, find indices of k closest points in the training set """
 
 
 class ClassificationKNN(KNN):

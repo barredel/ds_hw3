@@ -26,13 +26,13 @@ def load_data(path):
 
 
 def adjust_labels(y):
-    y_adjusted = list(map(lambda x: 0 if x <= 1 else 1, y))
+    y_adjusted = np.array(map(lambda x: 0 if x <= 1 else 1, y))
     return y_adjusted
 
 
 class StandardScaler:
-    standard_deviations = []
-    means = []
+    standard_deviations = np.empty()
+    means = np.empty()
 
     def __init__(self):
         pass
@@ -40,8 +40,8 @@ class StandardScaler:
     def fit(self, X):
         """ fit scaler by learning mean and standard deviation per feature """
         for i in X.T:
-            self.standard_deviations.append(i.std())
-            self.means.append(i.mean())
+            np.append(self.standard_deviations, i.std())
+            np.append(self.means, i.mean())
 
     def transform(self, X):
         """ transform X by learned mean and standard deviation, and return it """
@@ -50,4 +50,4 @@ class StandardScaler:
     def fit_transform(self, X):
         """fit scaler by learning mean and standard deviation per feature, and then transform X"""
         self.fit(X)
-        X = self.transform(X)
+        return self.transform(X)
