@@ -1,5 +1,4 @@
 import sys
-import data
 from data import *
 from cross_validation import *
 from evaluation import *
@@ -9,7 +8,7 @@ from knn import *
 def main(argv):
     k_list = [3, 5, 11, 25, 51, 75, 101]
     df = load_data(argv[1])
-    folds = data.get_folds()
+    folds = get_folds()
 
     # Part 1 - Classification
     X = add_noise(df[['t1', 't2', 'wind_speed', 'hum']].to_numpy())
