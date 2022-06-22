@@ -3,6 +3,7 @@ from scipy import stats
 from abc import abstractmethod
 from data import StandardScaler
 
+
 class KNN:
     k = 0
     X_train = []
@@ -15,11 +16,9 @@ class KNN:
         self.y_train = []
         self.scaler = StandardScaler()
 
-
     def fit(self, X_train, y_train):
         self.X_train = self.scaler.fit_transform(X_train)
         self.y_train = y_train
-
 
     @abstractmethod
     def predict(self, X_test):
@@ -36,7 +35,6 @@ class KNN:
         distance
         between
         x1 and x2"""
-
 
     def neighbours_indices(self, x):
         distances = []
@@ -90,8 +88,3 @@ class RegressionKNN(KNN):
         """ predict
         labels
         for X_test and return predicted labels """
-
-
-
-
-

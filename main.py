@@ -1,14 +1,14 @@
 import sys
-
 import data
 from data import *
 from cross_validation import *
 from evaluation import *
 from knn import *
 
+
 def main(argv):
     k_list = [3, 5, 11, 25, 51, 75, 101]
-    df = load_data("/home/student/hw3/london_sample_2500.csv")
+    df = load_data(argv[1])
     folds = data.get_folds()
 
     # Part 1 - Classification
@@ -31,7 +31,6 @@ def main(argv):
         print(f"k={k_list[i]}" + ", mean score: " + "{:.4f}".format(round(means[i], 4)) + ", std of scores: "
               + "{:.4f}".format(round(standard_deviations[i], 4)))
     visualize_results(k_list, means, "RMSE", "Regression", "./regressionPlot.png")
-
 
 
 if __name__ == '__main__':

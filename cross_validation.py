@@ -10,6 +10,7 @@ def cross_validation_score(model, X, y, folds, metric):
         scores.append(metric(y[validation_indices], y_pred))
     return np.array(scores)
 
+
 def model_selection_cross_validation(model, k_list, X, y, folds, metric):
     means = []
     standard_deviations = []
@@ -20,4 +21,3 @@ def model_selection_cross_validation(model, k_list, X, y, folds, metric):
     means = np.array(means)
     standard_deviations = np.array(standard_deviations)
     return means, standard_deviations
-
