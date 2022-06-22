@@ -5,14 +5,13 @@ import matplotlib.pyplot as plt
 
 
 def binary_confusion_matrix(y_true, y_pred):
-  y_true = np.array(y_true)
-  y_pred = np.array(y_pred)
-  TP = np.sum((y_true == 1) & (y_pred == 1))
-  FN = np.sum((y_true == 1) & (y_pred == 0))
-  FP = np.sum((y_true == 0) & (y_pred == 1))
-  TN = np.sum((y_true == 0) & (y_pred == 0))
-
-  return TN, FP, FN, TP
+    y_true = np.array(y_true)
+    y_pred = np.array(y_pred)
+    TP = np.sum((y_true == 1) & (y_pred == 1))
+    FN = np.sum((y_true == 1) & (y_pred == 0))
+    FP = np.sum((y_true == 0) & (y_pred == 1))
+    TN = np.sum((y_true == 0) & (y_pred == 0))
+    return TN, FP, FN, TP
 
 
 def f1_score(y_true, y_pred):
@@ -29,4 +28,9 @@ def rmse(y_true, y_pred):
 
 
 def visualize_results(k_list, scores, metric_name, title, path):
-    pass
+    plt.plot(k_list, scores)
+    plt.xlabel("k")
+    plt.ylabel(metric_name)
+    plt.title(title)
+    plt.savefig(path)
+    plt.show()
